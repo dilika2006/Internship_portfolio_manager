@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>My Certificates</h2>
+
+    <a href="{{ url_for('add_certificate') }}">+ Add New Certificate</a>
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+
+    <hr>
+
+    {% if certificates %}
+        {% for certificate in certificates %}
+            <div>
+                <h3>{{ certificate.title }}</h3>
+                <p>Issuer: {{ certificate.issuer }}</p>
+                <p>Date: {{ certificate.date_obtained }}</p>
+                <p>Link: <a href="{{ certificate.link }}" target="_blank">{{ certificate.link }}</a></p>
+                <a href="{{ url_for('edit_certificate', id=certificate.id) }}">Edit</a>
+                |
+                <a href="{{ url_for('delete_certificate', id=certificate.id) }}"
+                onlclick= "return confirm('Are sure to delete this certificate')">Delete</a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No certificates yet. Add your first one!</p>
+    {% endif %}
+
+{% endblock %}

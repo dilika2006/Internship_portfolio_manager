@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Add New Internship</h2>
+
+    <form method="POST" action="{{ url_for('add_internship') }}">
+        <p>
+            <label>Company:</label><br>
+            <input type="text" name="company" required>
+        </p>
+        <p>
+            <label>Role:</label><br>
+            <input type="text" name="role" required>
+        </p>
+        <p>
+            <label>Start Date:</label><br>
+            <input type="date" name="start_date" required>
+        </p>
+        <p>
+            <label>End Date:</label><br>
+            <input type="date" name="end_date">
+        </p>
+        <p>
+            <label>Skills Learned:</label><br>
+            <input type="text" name="skills">
+        </p>
+        <p>
+            <label>Notes:</label><br>
+            <textarea name="notes" rows="4" cols="50"></textarea>
+        </p>
+        <p>
+            <button type="submit">Save Internship</button>
+        </p>
+    </form>
+
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+
+{% endblock %}

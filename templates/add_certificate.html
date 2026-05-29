@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Add New Certificate</h2>
+
+    <form method="POST" action="{{ url_for('add_certificate') }}">
+        <p>
+            <label>Title:</label><br>
+            <input type="text" name="title" required>
+        </p>
+        <p>
+            <label>Issuer:</label><br>
+            <input type="text" name="issuer" required>
+        </p>
+        <p>
+            <label>Date Obtained:</label><br>
+            <input type="date" name="date_obtained" required>
+        </p>
+        <p>
+            <label>Link:</label><br>
+            <input type="text" name="link">
+        </p>
+        <p>
+            <button type="submit">Save Certificate</button>
+        </p>
+    </form>
+
+    <a href="{{ url_for('certificates') }}">← Back to Certificates</a>
+
+{% endblock %}

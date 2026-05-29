@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Welcome, {{ session['username'] }}!</h2>
+    <p>What would you like to manage today?</p>
+
+    <hr>
+
+    <h3>📋 Internships</h3>
+    <a href="{{ url_for('add_internship') }}">+ Add New Internship</a>
+    {% if internships %}
+        {% for internship in internships %}
+            <div>
+                <h4>{{ internship.company }} — {{ internship.role }}</h4>
+                <p>From: {{ internship.start_date }} | To: {{ internship.end_date or 'Present' }}</p>
+                <p>Skills: {{ internship.skills }}</p>
+                <p>Notes: {{ internship.notes }}</p>
+                <a href="{{ url_for('edit_internship', id=internship.id) }}">Edit</a>
+                |
+                <a href="{{ url_for('delete_internship', id=internship.id) }}"
+                onlclick= "return confirm('Are sure to delete this intership')">Delete</a>
+            </div>
+            <hr>
+        {% endfor %}
+    {% else %}
+        <p>No internships yet.</p>
+    {% endif %}
+
+    <hr>
+
+    <h3>🛠 Skills</h3>
+    <a href="{{ url_for('skills') }}">View All Skills</a>
+
+    <hr>
+
+    <h3>🚀 Projects</h3>
+    <a href="{{ url_for('projects') }}">View All Projects</a>
+
+    <hr>
+
+    <h3>🏆 Certificates</h3>
+    <a href="{{ url_for('certificates') }}">View All Certificates</a>
+
+{% endblock %}
