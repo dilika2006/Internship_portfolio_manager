@@ -17,5 +17,3 @@ Author
 Oumou Diallo
 Computer Engineering Student
 Istanbul Arel University
-
-
