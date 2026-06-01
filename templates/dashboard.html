@@ -1,44 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>Welcome, {{ session['username'] }}!</h2>
-    <p>What would you like to manage today?</p>
 
-    <hr>
+<div class="page-header">
+    <h2>Welcome, {{ session['username'] }}! 👋</h2>
+</div>
 
-    <h3>📋 Internships</h3>
-    <a href="{{ url_for('add_internship') }}">+ Add New Internship</a>
-    {% if internships %}
-        {% for internship in internships %}
-            <div>
-                <h4>{{ internship.company }} — {{ internship.role }}</h4>
-                <p>From: {{ internship.start_date }} | To: {{ internship.end_date or 'Present' }}</p>
-                <p>Skills: {{ internship.skills }}</p>
-                <p>Notes: {{ internship.notes }}</p>
-                <a href="{{ url_for('edit_internship', id=internship.id) }}">Edit</a>
-                |
-                <a href="{{ url_for('delete_internship', id=internship.id) }}"
-                onlclick= "return confirm('Are sure to delete this intership')">Delete</a>
+<div class="section-title">📋 Internships</div>
+<a href="{{ url_for('add_internship') }}" class="button">+ Add Internship</a>
+
+{% if internships %}
+    {% for internship in internships %}
+        <div class="card">
+            <h3>{{ internship.company }}</h3>
+            <span class="badge">{{ internship.role }}</span>
+            <p>📅 {{ internship.start_date }} → {{ internship.end_date or 'Present' }}</p>
+            <p>🛠 Skills: {{ internship.skills }}</p>
+            <p>📝 {{ internship.notes }}</p>
+            <div class="card-actions">
+                <a href="{{ url_for('edit_internship', id=internship.id) }}" class="button grey">Edit</a>
+                <a href="{{ url_for('delete_internship', id=internship.id) }}" class="button red" onclick="return confirm('Are you sure?')">Delete</a>
             </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>No internships yet.</p>
-    {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">No internships yet. Add your first one!</div>
+{% endif %}
 
-    <hr>
+<br>
+<div class="section-title">🛠 Skills</div>
+<a href="{{ url_for('skills') }}" class="button">View All Skills</a>
 
-    <h3>🛠 Skills</h3>
-    <a href="{{ url_for('skills') }}">View All Skills</a>
+<br><br>
+<div class="section-title">🚀 Projects</div>
+<a href="{{ url_for('projects') }}" class="button">View All Projects</a>
 
-    <hr>
-
-    <h3>🚀 Projects</h3>
-    <a href="{{ url_for('projects') }}">View All Projects</a>
-
-    <hr>
-
-    <h3>🏆 Certificates</h3>
-    <a href="{{ url_for('certificates') }}">View All Certificates</a>
+<br><br>
+<div class="section-title">🏆 Certificates</div>
+<a href="{{ url_for('certificates') }}" class="button">View All Certificates</a>
 
 {% endblock %}

@@ -1,29 +1,32 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>My Projects</h2>
 
-    <a href="{{ url_for('add_project') }}">+ Add New Project</a>
-    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+<div class="page-header">
+    <h2>🚀 My Projects</h2>
+    <a href="{{ url_for('add_project') }}" class="button">+ Add Project</a>
+</div>
 
-    <hr>
-
-    {% if projects %}
-        {% for project in projects %}
-            <div>
-                <h3>{{ project.title }}</h3>
-                <p>{{ project.description }}</p>
-                <p>From: {{ project.start_date }} | To: {{ project.end_date or 'Present' }}</p>
-                <p>Link: <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
-                <a href="{{ url_for('edit_project', id=project.id) }}">Edit</a>
-                |
-                <a href="{{ url_for('delete_project', id=project.id) }}"
-                onlclick= "return confirm('Are sure to delete this skill')">Delete</a>
+{% if projects %}
+    {% for project in projects %}
+        <div class="card">
+            <h3>{{ project.title }}</h3>
+            <p>📝 {{ project.description }}</p>
+            <p>📅 {{ project.start_date }} → {{ project.end_date or 'Present' }}</p>
+            {% if project.link %}
+                <p>🔗 <a href="{{ project.link }}" target="_blank">{{ project.link }}</a></p>
+            {% endif %}
+            <div class="card-actions">
+                <a href="{{ url_for('edit_project', id=project.id) }}" class="button grey">Edit</a>
+                <a href="{{ url_for('delete_project', id=project.id) }}" class="button red" onclick="return confirm('Are you sure?')">Delete</a>
             </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>No projects yet. Add your first one!</p>
-    {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">No projects yet. Add your first one!</div>
+{% endif %}
+
+<br>
+<a href="{{ url_for('dashboard') }}" class="button grey">← Back to Dashboard</a>
 
 {% endblock %}

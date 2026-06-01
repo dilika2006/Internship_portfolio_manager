@@ -1,27 +1,35 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h2>My Skills</h2>
 
-    <a href="{{ url_for('add_skill') }}">+ Add New Skill</a>
-    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+<div class="page-header">
+    <h2>🛠 My Skills</h2>
+    <a href="{{ url_for('add_skill') }}" class="button">+ Add Skill</a>
+</div>
 
-    <hr>
-
-    {% if skills %}
-        {% for skill in skills %}
-            <div>
-                <h3>{{ skill.name }}</h3>
-                <p>Level: {{ skill.level }}</p>
-                <p>Notes: {{ skill.notes }}</p>
-                <a href="{{ url_for('edit_skill', id=skill.id) }}">Edit</a>
-                |
-                <a href="{{ url_for('delete_skill', id=skill.id) }}">Delete</a>
+{% if skills %}
+    {% for skill in skills %}
+        <div class="card">
+            <h3>{{ skill.name }}</h3>
+            {% if skill.level == 'Beginner' %}
+                <span class="badge orange">{{ skill.level }}</span>
+            {% elif skill.level == 'Intermediate' %}
+                <span class="badge">{{ skill.level }}</span>
+            {% else %}
+                <span class="badge green">{{ skill.level }}</span>
+            {% endif %}
+            <p>📝 {{ skill.notes }}</p>
+            <div class="card-actions">
+                <a href="{{ url_for('edit_skill', id=skill.id) }}" class="button grey">Edit</a>
+                <a href="{{ url_for('delete_skill', id=skill.id) }}" class="button red" onclick="return confirm('Are you sure?')">Delete</a>
             </div>
-            <hr>
-        {% endfor %}
-    {% else %}
-        <p>No skills yet. Add your first one!</p>
-    {% endif %}
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="empty-state">No skills yet. Add your first one!</div>
+{% endif %}
+
+<br>
+<a href="{{ url_for('dashboard') }}" class="button grey">← Back to Dashboard</a>
 
 {% endblock %}
